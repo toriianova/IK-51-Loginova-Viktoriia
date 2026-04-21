@@ -1,0 +1,6 @@
+@ІК_51_23_Логінова_В.Р__HostAddress = http://localhost:5116
+
+GET {{ІК_51_23_Логінова_В.Р__HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
