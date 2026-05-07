@@ -64,8 +64,12 @@ namespace ІК_51_23_Логінова_В.Р_.Services
 
             result = sortBy?.ToLower() switch
             {
-                "name" => result.OrderBy(t => t.Name).ToList(),
-                "artist" => result.OrderBy(t => t.Artist).ToList(),
+                "name" => result.OrderBy(t => t.Name, StringComparer.CurrentCultureIgnoreCase).ToList(),
+
+                "artist" => result.OrderBy(t => t.Artist, StringComparer.CurrentCultureIgnoreCase).ToList(),
+
+                "album" => result.OrderBy(t => t.Album, StringComparer.CurrentCultureIgnoreCase).ToList(),
+
                 _ => result
             };
 
@@ -163,7 +167,7 @@ namespace ІК_51_23_Логінова_В.Р_.Services
             _http.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue("Bearer", token);
 
-            var query = Uri.EscapeDataString(year.ToString());
+            var query = Uri.EscapeDataString($"year:{year}");
             var url = $"https://api.spotify.com/v1/search?q={query}&type=track&limit=10";
 
             var responseMessage = await _http.GetAsync(url);
@@ -209,11 +213,11 @@ namespace ІК_51_23_Логінова_В.Р_.Services
             _http.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue("Bearer", token);
 
-            string query = artist;
+            string query = $"artist:{artist}";
 
             if (!string.IsNullOrWhiteSpace(genre))
             {
-                query += " " + genre;
+                query += $" genre:{genre}";
             }
 
             var url = $"https://api.spotify.com/v1/search?q={Uri.EscapeDataString(query)}&type=track&limit=5";

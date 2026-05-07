@@ -1,4 +1,5 @@
-﻿namespace ІК_51_23_Логінова_В.Р_.Models.Spotify
+﻿using System.Text.Json.Serialization;
+namespace ІК_51_23_Логінова_В.Р_.Models.Spotify
 {
     public class SpotifyAlbumSearchResponse//відповідь Spotify на пошук альбомів
     {
@@ -14,6 +15,7 @@
     {
         public string Id { get; set; }
         public string Name { get; set; }
+        [JsonPropertyName("release_date")]
         public string ReleaseDate { get; set; }
         public List<Artist> Artists { get; set; }
     }
