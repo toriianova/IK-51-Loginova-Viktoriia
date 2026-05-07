@@ -8,10 +8,12 @@ namespace ІК_51_23_Логінова_В.Р_.Controllers
     public class TracksController : ControllerBase
     {
         private readonly SpotifyApiService _spotify;
+        private readonly ILogger<TracksController> _logger;
 
-        public TracksController(SpotifyApiService spotify)
+        public TracksController (SpotifyApiService spotify, ILogger<TracksController> logger)
         {
-            _spotify = spotify;//зберігаємо переданий сервіс у поле
+            _spotify = spotify;
+            _logger = logger;
         }
 
         [HttpGet("search")]
@@ -19,11 +21,13 @@ namespace ІК_51_23_Логінова_В.Р_.Controllers
         {
             try
             {
+                _logger.LogInformation("Track search started. Query: {Query}", query);
                 var result = await _spotify.SearchTracks(query, sortBy, nameFilter);
                 return Ok(result);
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, "Error while searching tracks");
                 return StatusCode(500, $"Помилка при зверненні до Spotify: {ex.Message}");
             }
         }
@@ -33,6 +37,7 @@ namespace ІК_51_23_Логінова_В.Р_.Controllers
         {
             try
             {
+                _logger.LogInformation("Getting track by ID: {Id}", id);
                 var result = await _spotify.GetTrackById(id);
 
                 if (result == null)
@@ -44,6 +49,7 @@ namespace ІК_51_23_Логінова_В.Р_.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, "Error while getting track by ID");
                 return StatusCode(500, $"Помилка при зверненні до Spotify: {ex.Message}");
             }
         }
@@ -53,11 +59,13 @@ namespace ІК_51_23_Логінова_В.Р_.Controllers
         {
             try
             {
+                _logger.LogInformation("Album search started. Query: {Query}", query);
                 var result = await _spotify.SearchAlbums(query);
                 return Ok(result);
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, "Error while searching albums");
                 return StatusCode(500, $"Помилка при зверненні до Spotify: {ex.Message}");
             }
         }
@@ -67,6 +75,7 @@ namespace ІК_51_23_Логінова_В.Р_.Controllers
         {
             try
             {
+                _logger.LogInformation("Getting top tracks for year: {Year}", year);
                 if (year < 1900 || year > DateTime.Now.Year)
                 {
                     return BadRequest("Некоректний рік");//400
@@ -77,6 +86,7 @@ namespace ІК_51_23_Логінова_В.Р_.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, "Error while getting top tracks");
                 return StatusCode(500, $"Помилка при зверненні до Spotify: {ex.Message}");
             }
         }
@@ -86,6 +96,7 @@ namespace ІК_51_23_Логінова_В.Р_.Controllers
         {
             try
             {
+                _logger.LogInformation("Getting recommendations for artist: {Artist}", artist);
                 if (string.IsNullOrWhiteSpace(artist))
                 {
                     return BadRequest("Потрібно вказати артиста");//400
@@ -96,6 +107,7 @@ namespace ІК_51_23_Логінова_В.Р_.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, "Error while getting recommendations");
                 return StatusCode(500, $"Помилка при зверненні до Spotify: {ex.Message}");
             }
         }
