@@ -4,14 +4,14 @@ using ІК_51_23_Логінова_В.Р_.Services;
 namespace ІК_51_23_Логінова_В.Р_.Controllers
 {
     [ApiController]
-    [Route("api/tracks")]
+    [Route("api/tracks")]//початок адреси для методів
     public class TracksController : ControllerBase
     {
         private readonly SpotifyApiService _spotify;
 
         public TracksController(SpotifyApiService spotify)
         {
-            _spotify = spotify;
+            _spotify = spotify;//зберігаємо переданий сервіс у поле
         }
 
         [HttpGet("search")]
@@ -37,7 +37,7 @@ namespace ІК_51_23_Логінова_В.Р_.Controllers
 
                 if (result == null)
                 {
-                    return NotFound("Трек не знайдено");
+                    return NotFound("Трек не знайдено");//404
                 }
 
                 return Ok(result);
@@ -69,7 +69,7 @@ namespace ІК_51_23_Логінова_В.Р_.Controllers
             {
                 if (year < 1900 || year > DateTime.Now.Year)
                 {
-                    return BadRequest("Некоректний рік");
+                    return BadRequest("Некоректний рік");//400
                 }
 
                 var result = await _spotify.GetTopTracksByYear(year);
@@ -88,7 +88,7 @@ namespace ІК_51_23_Логінова_В.Р_.Controllers
             {
                 if (string.IsNullOrWhiteSpace(artist))
                 {
-                    return BadRequest("Потрібно вказати артиста");
+                    return BadRequest("Потрібно вказати артиста");//400
                 }
 
                 var result = await _spotify.GetRecommendations(artist, genre);

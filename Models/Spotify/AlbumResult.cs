@@ -2,7 +2,7 @@
 {
     public class AlbumResult
     {
-        public string Id { get; set; }
+        public string Id { get; set; }//для альбому
         public string Name { get; set; }
         public string Artist { get; set; }
         public string ReleaseDate { get; set; }

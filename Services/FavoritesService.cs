@@ -12,37 +12,37 @@ namespace ІК_51_23_Логінова_В.Р_.Services
             _filePath = Path.Combine(AppContext.BaseDirectory, "Storage", "favorites.json");
         }
 
-        private async Task<List<FavoriteTrack>> ReadFavoritesFromFile()
+        private async Task<List<FavoriteTrack>> ReadFavoritesFromFile()//читаємо обрані треки з файлу
         {
-            if (!File.Exists(_filePath))
+            if (!File.Exists(_filePath))//перевіряємо чи існує файл
             {
-                return new List<FavoriteTrack>();
+                return new List<FavoriteTrack>();//повертає порожній список
             }
 
             var json = await File.ReadAllTextAsync(_filePath);
 
-            if (string.IsNullOrWhiteSpace(json))
+            if (string.IsNullOrWhiteSpace(json))//перевіряє чи порожній рядок
             {
                 return new List<FavoriteTrack>();
             }
 
-            var favorites = JsonSerializer.Deserialize<List<FavoriteTrack>>(json);
+            var favorites = JsonSerializer.Deserialize<List<FavoriteTrack>>(json);//перетворюєио JSON-текст у список об’єктів FavoriteTrack
 
-            return favorites ?? new List<FavoriteTrack>();
+            return favorites ?? new List<FavoriteTrack>();//якщо зліва null, тоді берем справа
         }
 
-        private async Task SaveFavoritesToFile(List<FavoriteTrack> favorites)
+        private async Task SaveFavoritesToFile(List<FavoriteTrack> favorites)//зберігаємо в обране
         {
             var json = JsonSerializer.Serialize(favorites, new JsonSerializerOptions
             {
-                WriteIndented = true
+                WriteIndented = true//запис з відступами
             });
 
             var directory = Path.GetDirectoryName(_filePath);
 
-            if (!string.IsNullOrWhiteSpace(directory) && !Directory.Exists(directory))
+            if (!string.IsNullOrWhiteSpace(directory) && !Directory.Exists(directory))//якщо шлях до папки нормальний і папки ще немає — створюємо її.
             {
-                Directory.CreateDirectory(directory);
+                Directory.CreateDirectory(directory);//створюємо папку
             }
 
             if (!Directory.Exists(directory))
@@ -50,7 +50,7 @@ namespace ІК_51_23_Логінова_В.Р_.Services
                 Directory.CreateDirectory(directory);
             }
 
-            await File.WriteAllTextAsync(_filePath, json);
+            await File.WriteAllTextAsync(_filePath, json);//асинхронно записуєм у файл
         }
 
         public async Task<List<FavoriteTrack>> GetAll()

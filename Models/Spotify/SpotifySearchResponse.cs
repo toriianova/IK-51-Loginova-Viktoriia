@@ -11,7 +11,7 @@ namespace ІК_51_23_Логінова_В.Р_.Models.Spotify
     public class TracksContainer
     {
         [JsonPropertyName("items")]
-        public List<SpotifyTrack> Items { get; set; }
+        public List<SpotifyTrack> Items { get; set; }//список треків
     }
 
     public class SpotifyTrack

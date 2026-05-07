@@ -32,11 +32,11 @@ namespace ІК_51_23_Логінова_В.Р_
                 app.UseSwaggerUI();
             }
 
-            app.UseHttpsRedirection();
+            app.UseHttpsRedirection();//перенаправляє з http в https
 
-            app.UseAuthorization();
+            app.UseAuthorization();//перевірка авторизації
 
-            app.MapControllers();
+            app.MapControllers();//маршрути контролерів
 
 
             app.Run();

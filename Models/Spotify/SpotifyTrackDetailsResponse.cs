@@ -2,7 +2,7 @@
 
 namespace ІК_51_23_Логінова_В.Р_.Models.Spotify
 {
-    public class SpotifyTrackDetailsResponse
+    public class SpotifyTrackDetailsResponse//отримуємо конкретний трек за іd
     {
         [JsonPropertyName("id")]
         public string Id { get; set; }
@@ -16,10 +16,10 @@ namespace ІК_51_23_Логінова_В.Р_.Models.Spotify
         [JsonPropertyName("album")]
         public SpotifyAlbum Album { get; set; }
 
-        [JsonPropertyName("duration_ms")]
+        [JsonPropertyName("duration_ms")]//тривалість треку
         public int DurationMs { get; set; }
 
-        [JsonPropertyName("explicit")]
+        [JsonPropertyName("explicit")]//лексика
         public bool Explicit { get; set; }
        
     }

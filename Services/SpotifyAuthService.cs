@@ -6,9 +6,9 @@ using System.Text.Json;
 
 namespace ІК_51_23_Логінова_В.Р_.Services
 {
-    public class SpotifyAuthService
+    public class SpotifyAuthService//авторизація в Spotify
     {
-        private readonly SpotifySettings _settings;
+        private readonly SpotifySettings _settings;//зберігаємо id та ключ
         private readonly HttpClient _http;
 
         public SpotifyAuthService(IOptions<SpotifySettings> settings)
@@ -17,7 +17,7 @@ namespace ІК_51_23_Логінова_В.Р_.Services
             _http = new HttpClient();
         }
 
-        public async Task<string> GetAccessToken()
+        public async Task<string> GetAccessToken()//повертає токен
         {
             var auth = Convert.ToBase64String(
                 Encoding.UTF8.GetBytes($"{_settings.ClientId}:{_settings.ClientSecret}")
@@ -28,7 +28,7 @@ namespace ІК_51_23_Логінова_В.Р_.Services
 
             var data = new Dictionary<string, string>
             {
-                {"grant_type", "client_credentials"}
+                {"grant_type", "client_credentials"}//токен для сервера
             };
 
             var response = await _http.PostAsync(
@@ -42,7 +42,7 @@ namespace ІК_51_23_Логінова_В.Р_.Services
 
             var json = await response.Content.ReadAsStringAsync();
 
-            using var doc = JsonDocument.Parse(json);
+            using var doc = JsonDocument.Parse(json);//можливість звертатись до окремих полів
             return doc.RootElement.GetProperty("access_token").GetString();
         }
     }

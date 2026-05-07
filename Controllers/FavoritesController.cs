@@ -21,7 +21,7 @@ namespace ІК_51_23_Логінова_В.Р_.Controllers
         public async Task<IActionResult> GetAll()
         {
             var favorites = await _favoritesService.GetAll();
-            return Ok(favorites);
+            return Ok(favorites);//повертаєм 200
         }
 
         [HttpGet("{id}")]
@@ -37,7 +37,7 @@ namespace ІК_51_23_Логінова_В.Р_.Controllers
             return Ok(favorite);
         }
 
-        [HttpPost("by-spotify-id")]
+        [HttpPost("by-spotify-id")]//додати в обране за spotify-id
         public async Task<IActionResult> AddBySpotifyId([FromBody] AddBySpotifyIdRequest request)
         {
             if (request == null || string.IsNullOrWhiteSpace(request.SpotifyId))
@@ -52,7 +52,7 @@ namespace ІК_51_23_Логінова_В.Р_.Controllers
                 return NotFound("Трек не знайдено в Spotify");
             }
 
-            return CreatedAtAction(
+            return CreatedAtAction(//201
                 nameof(GetById),
                 new { id = createdFavorite.Id },
                 createdFavorite);
@@ -91,7 +91,7 @@ namespace ІК_51_23_Логінова_В.Р_.Controllers
                 return NotFound("Запис не знайдено");
             }
 
-            return NoContent();
+            return NoContent();//204
         }
     }
 }
