@@ -1,6 +1,6 @@
 using ІК_51_23_Логінова_В.Р_.Models.Config;
 using ІК_51_23_Логінова_В.Р_.Services;
-
+using Microsoft.OpenApi.Models;
 namespace ІК_51_23_Логінова_В.Р_
 {
     public class Program
@@ -21,7 +21,15 @@ namespace ІК_51_23_Логінова_В.Р_
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Music Search Bot API",
+                    Version = "v1",
+                    Description = "API for searching music tracks, managing favorites, ratings and notes."
+                });
+            });
 
             var app = builder.Build();
 
