@@ -109,7 +109,13 @@ namespace ІК_51_23_Логінова_В.Р_.Services
             }
 
             var favorites = await ReadFavoritesFromFile();
+            var existingFavorite = favorites
+            .FirstOrDefault(f => f.SpotifyId == spotifyId);
 
+            if (existingFavorite != null)
+            {
+                return existingFavorite;
+            }
             var newFavorite = new FavoriteTrack
             {
                 Id = Guid.NewGuid(),
