@@ -17,7 +17,7 @@ namespace ІК_51_23_Логінова_В.Р_
 
             builder.Services.AddScoped<SpotifyAuthService>();
             builder.Services.AddScoped<SpotifyApiService>();
-            builder.Services.AddScoped<FavoritesService>();
+            builder.Services.AddScoped<DatabaseService>();
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
