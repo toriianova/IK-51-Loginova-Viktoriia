@@ -15,9 +15,10 @@ namespace ІК_51_23_Логінова_В.Р_
             builder.Services.Configure<SpotifySettings>(
             builder.Configuration.GetSection("Spotify"));
 
-            builder.Services.AddScoped<SpotifyAuthService>();
-            builder.Services.AddScoped<SpotifyApiService>();
-            builder.Services.AddScoped<DatabaseService>();
+            builder.Services.AddSingleton<SpotifyAuthService>();
+            builder.Services.AddSingleton<SpotifyApiService>();
+            builder.Services.AddSingleton<DatabaseService>();
+            builder.Services.AddSingleton<TelegramBotService>();
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
@@ -32,6 +33,8 @@ namespace ІК_51_23_Логінова_В.Р_
             });
 
             var app = builder.Build();
+            var botService = app.Services.GetRequiredService<TelegramBotService>();
+            botService.Start();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
