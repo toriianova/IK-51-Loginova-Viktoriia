@@ -35,7 +35,7 @@ namespace ІК_51_23_Логінова_В.Р_.Services
 
             var options = new JsonSerializerOptions
             {
-                PropertyNameCaseInsensitive = true
+                PropertyNameCaseInsensitive = true//регістр
             };
 
             var response = JsonSerializer.Deserialize<SpotifySearchResponse>(json, options);
@@ -55,7 +55,7 @@ namespace ІК_51_23_Логінова_В.Р_.Services
                 Album = track.Album?.Name ?? "Невідомий альбом"
             }).ToList();
 
-            if (!string.IsNullOrWhiteSpace(nameFilter))
+            if (!string.IsNullOrWhiteSpace(nameFilter))//фільтр по назві
             {
                 result = result
                     .Where(t => t.Name.Contains(nameFilter, StringComparison.OrdinalIgnoreCase))

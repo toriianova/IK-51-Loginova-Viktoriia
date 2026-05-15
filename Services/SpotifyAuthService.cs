@@ -9,7 +9,7 @@ namespace ІК_51_23_Логінова_В.Р_.Services
     public class SpotifyAuthService//авторизація в Spotify
     {
         private readonly SpotifySettings _settings;//зберігаємо id та ключ
-        private readonly HttpClient _http;
+        private readonly HttpClient _http;//для HTTP-запитів до Spotify API.
 
         public SpotifyAuthService(IOptions<SpotifySettings> settings)
         {
@@ -28,7 +28,7 @@ namespace ІК_51_23_Логінова_В.Р_.Services
 
             var data = new Dictionary<string, string>
             {
-                {"grant_type", "client_credentials"}//токен для сервера
+                {"grant_type", "client_credentials"}//токен для сервера, тіло пост запита
             };
 
             var response = await _http.PostAsync(

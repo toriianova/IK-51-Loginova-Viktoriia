@@ -14,7 +14,7 @@ namespace ІК_51_23_Логінова_В.Р_.Models.Spotify
         public List<SpotifyTrack> Items { get; set; }//список треків
     }
 
-    public class SpotifyTrack
+    public class SpotifyTrack//модель одного треку
     {
         [JsonPropertyName("id")]
         public string Id { get; set; }

@@ -6,7 +6,7 @@ namespace ІК_51_23_Логінова_В.Р_.Services
     public class DatabaseService
     {
         private readonly string _connectionString =
-            "Host=localhost;Port=5432;Username=postgres;Password=17041704;Database=music_search_bot_db";
+            "Host=localhost;Port=5432;Username=postgres;Password=17041704;Database=music_search_bot_db";//підключення до бд
 
         public async Task<UserDb?> GetUserByTelegramId(long telegramId)
         {
@@ -14,11 +14,11 @@ namespace ІК_51_23_Логінова_В.Р_.Services
             await connection.OpenAsync();
 
             var sql = "SELECT id, telegram_id, username, first_name, registered_at FROM users WHERE telegram_id = @telegram_id";
-
+            //SQL-запит до бд
             await using var command = new NpgsqlCommand(sql, connection);
             command.Parameters.AddWithValue("@telegram_id", telegramId);
 
-            await using var reader = await command.ExecuteReaderAsync();
+            await using var reader = await command.ExecuteReaderAsync();//виконання SQL-запиту, який повертає дані
 
             if (await reader.ReadAsync())
             {
@@ -119,7 +119,7 @@ namespace ІК_51_23_Логінова_В.Р_.Services
         string spotifyId,
         SpotifyApiService spotifyApi)
         {
-            var user = await GetUserByTelegramId(telegramId);
+            var user = await GetUserByTelegramId(telegramId);//шукає користувача
 
             if (user == null)
             {

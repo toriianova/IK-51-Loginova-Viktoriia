@@ -13,7 +13,7 @@ namespace ІК_51_23_Логінова_В.Р_.Services
         private readonly SpotifyApiService _spotify;
         private readonly DatabaseService _database;
 
-        private readonly Dictionary<long, string> _userStates = new();
+        private readonly Dictionary<long, string> _userStates = new();//зберігає на якому етапі користувач
         private readonly Dictionary<long, string> _tempData = new();
 
         public TelegramBotService(SpotifyApiService spotify, DatabaseService database)
@@ -24,7 +24,7 @@ namespace ІК_51_23_Логінова_В.Р_.Services
             _botClient = new TelegramBotClient("8667986539:AAFSexpNy3LUZFBIbVUTDmuIGCS1iRU8PoM");
         }
 
-        public void Start()
+        public void Start()//запуск бота
         {
             var receiverOptions = new ReceiverOptions
             {
@@ -193,7 +193,7 @@ namespace ІК_51_23_Логінова_В.Р_.Services
             await ProcessUserState(botClient, chatId, telegramId, text, cancellationToken);
         }
 
-        private async Task HandleCallbackQuery(
+        private async Task HandleCallbackQuery(//обробляє натискання inline-кнопок
             ITelegramBotClient botClient,
             CallbackQuery callback,
             CancellationToken cancellationToken)
@@ -720,7 +720,7 @@ namespace ІК_51_23_Логінова_В.Р_.Services
             }
         }
 
-        private async Task ProcessSortingCallback(
+        private async Task ProcessSortingCallback(//оброблення кнопок сортування
             ITelegramBotClient botClient,
             long chatId,
             string data,

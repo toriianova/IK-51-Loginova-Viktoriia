@@ -15,7 +15,7 @@ namespace ІК_51_23_Логінова_В.Р_
             builder.Services.Configure<SpotifySettings>(
             builder.Configuration.GetSection("Spotify"));
 
-            builder.Services.AddSingleton<SpotifyAuthService>();
+            builder.Services.AddSingleton<SpotifyAuthService>();//отримує токен доступу
             builder.Services.AddSingleton<SpotifyApiService>();
             builder.Services.AddSingleton<DatabaseService>();
             builder.Services.AddSingleton<TelegramBotService>();
@@ -24,7 +24,7 @@ namespace ІК_51_23_Логінова_В.Р_
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(options =>
             {
-                options.SwaggerDoc("v1", new OpenApiInfo
+                options.SwaggerDoc("v1", new OpenApiInfo//підключення свагера
                 {
                     Title = "Music Search Bot API",
                     Version = "v1",
@@ -34,7 +34,7 @@ namespace ІК_51_23_Логінова_В.Р_
 
             var app = builder.Build();
             var botService = app.Services.GetRequiredService<TelegramBotService>();
-            botService.Start();
+            botService.Start();//запуск бота
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -47,7 +47,7 @@ namespace ІК_51_23_Логінова_В.Р_
 
             app.UseAuthorization();//перевірка авторизації
 
-            app.MapControllers();//маршрути контролерів
+            app.MapControllers();//маршрути контролерів (напр. /api/favorites)
 
 
             app.Run();

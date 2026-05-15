@@ -53,7 +53,7 @@ namespace ІК_51_23_Логінова_В.Р_.Services
             await File.WriteAllTextAsync(_filePath, json);//асинхронно записуєм у файл
         }
 
-        public async Task<List<FavoriteTrack>> GetAll()
+        public async Task<List<FavoriteTrack>> GetAll()//повертає всі обрані треки
         {
             return await ReadFavoritesFromFile();
         }
@@ -64,7 +64,7 @@ namespace ІК_51_23_Логінова_В.Р_.Services
             return favorites.FirstOrDefault(f => f.Id == id);
         }
 
-        public async Task<FavoriteTrack?> Update(Guid id, UpdateFavoriteRequest request)
+        public async Task<FavoriteTrack?> Update(Guid id, UpdateFavoriteRequest request)//оновлення рейтингу/коментаря
         {
             var favorites = await ReadFavoritesFromFile();
 
@@ -110,7 +110,7 @@ namespace ІК_51_23_Логінова_В.Р_.Services
 
             var favorites = await ReadFavoritesFromFile();
             var existingFavorite = favorites
-            .FirstOrDefault(f => f.SpotifyId == spotifyId);
+            .FirstOrDefault(f => f.SpotifyId == spotifyId);//перевірка чи трек вже в обраному
 
             if (existingFavorite != null)
             {
@@ -127,7 +127,7 @@ namespace ІК_51_23_Логінова_В.Р_.Services
                 Comment = ""
             };
 
-            favorites.Add(newFavorite);
+            favorites.Add(newFavorite);//додаємо в список
             await SaveFavoritesToFile(favorites);
 
             return newFavorite;

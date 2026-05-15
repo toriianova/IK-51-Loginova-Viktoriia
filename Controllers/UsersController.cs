@@ -28,7 +28,7 @@ namespace ІК_51_23_Логінова_В.Р_.Controllers
             return Ok(user);
         }
 
-        [HttpGet("{telegramId}")]
+        [HttpGet("{telegramId}")]//повертає інфу про користувача
         public async Task<IActionResult> GetUser(long telegramId)
         {
             var user = await _database.GetUserByTelegramId(telegramId);

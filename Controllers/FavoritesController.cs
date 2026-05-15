@@ -5,13 +5,13 @@ using ІК_51_23_Логінова_В.Р_.Services;
 namespace ІК_51_23_Логінова_В.Р_.Controllers
 {
     [ApiController]
-    [Route("api/favorites")]
+    [Route("api/favorites")]//зовн. шлях
     public class FavoritesController : ControllerBase
     {
         private readonly DatabaseService _database;
         private readonly SpotifyApiService _spotify;
         private readonly ILogger<FavoritesController> _logger;
-        public FavoritesController(
+        public FavoritesController(//передача потрібних сервісів
             DatabaseService database,
             SpotifyApiService spotify,
             ILogger<FavoritesController> logger)
@@ -26,7 +26,7 @@ namespace ІК_51_23_Логінова_В.Р_.Controllers
         {
             _logger.LogInformation("Getting favorite tracks for Telegram user: {TelegramId}", telegramId);
 
-            var favorites = await _database.GetFavoritesByTelegramId(telegramId);
+            var favorites = await _database.GetFavoritesByTelegramId(telegramId);//Контролер звертається до DatabaseService і просить знайти обране за telegramId
 
             if (favorites == null)
             {
@@ -39,7 +39,7 @@ namespace ІК_51_23_Логінова_В.Р_.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(long telegramId, Guid id)
         {
-            _logger.LogInformation(
+            _logger.LogInformation(//шукаємо конкретний запис
                 "Getting favorite track by ID. Telegram user: {TelegramId}, ID: {Id}",
                 telegramId,
                 id);
@@ -54,7 +54,7 @@ namespace ІК_51_23_Логінова_В.Р_.Controllers
             return Ok(favorite);
         }
 
-        [HttpPost("by-spotify-id")]
+        [HttpPost("by-spotify-id")]//створити запис
         public async Task<IActionResult> AddBySpotifyId(long telegramId, [FromBody] AddBySpotifyIdRequest request)
         {
             _logger.LogInformation("Adding track to favorites. Telegram user: {TelegramId}, Spotify ID: {SpotifyId}",
@@ -119,7 +119,7 @@ namespace ІК_51_23_Логінова_В.Р_.Controllers
                 return NotFound("Користувач не зареєстрований або запис не знайдено");
             }
 
-            return NoContent();
+            return NoContent();//204
         }
     }
 }
